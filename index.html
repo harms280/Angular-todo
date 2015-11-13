@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="todoApp">
 	<head>
 		<meta charset="UTF-8">
 		<title>Angular To Do App</title>
@@ -7,24 +7,38 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	</head>
 	<body>
-		<div class="container">
+		<div class="container" ng-controller="TodosController">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<!-- Create your form below, try adding some angular validations -->
-					<form>
+					<button ng-hide="visible" ng-click="showForm()" class="btn btn-info">Add Item</button>
+					<form  ng-show="visible" name="todoForm" ng-submit="addTodo(newTodo)" novalidate>
+						<div ng-class="{'form-group': true, 'has-error': todoForm.task.$invalid && todoForm.task.$dirty, 'has-success': todoForm.task.$valid && todoForm.task.$dirty}">
+							<label for="task" class="control-label">Enter Task: </label>
+							<input type="text" id="task" ng-model="newTodo.task" name="task" class="form-control" ng-required="true" ng-minlength="2">
+							<span ng-show="todoForm.task.$invalid && todoForm.task.$dirty" class="help-block">Enter valid todo</span>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary">
+
+						</div>
 					</form>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<!-- List your todos here, use some css to hide the bullet points -->
-					<ul> 
+					<ul ng-cloak>
+						<li ng-repeat="todo in todos track by $index">{{todo.task}}</li> 
 					</ul>
+					<button ng-show="todos.length > 0"ng-click="deleteAll()" class="btn btn-danger">Delete All</button>
 				</div>
 			</div>
 		</div>
 
 		<!-- JavaScripts -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+		<script src="./app.js"></script>
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
 		<!-- Latest compiled and minified JavaScript for bootstrap -->
