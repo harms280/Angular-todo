@@ -5,13 +5,23 @@
 		<title>Angular To Do App</title>
 		<!-- Latest compiled and minified CSS for bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<style>
+			ul li {
+				list-style-type: none;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="container-fluid">
+			<div class="page-header">
+				<h1>Todo App</h1>
+			</div>
+		</div>
 		<div class="container" ng-controller="TodosController">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<!-- Create your form below, try adding some angular validations -->
-					<button ng-hide="visible" ng-click="showForm()" class="btn btn-info">Add Item</button>
+					<button ng-hide="visible" ng-click="showForm()" class="btn btn-info pull-right">Add Item</button>
 					<form  ng-show="visible" name="todoForm" ng-submit="addTodo(newTodo)" novalidate>
 						<div ng-class="{'form-group': true, 'has-error': todoForm.task.$invalid && todoForm.task.$dirty, 'has-success': todoForm.task.$valid && todoForm.task.$dirty}">
 							<label for="task" class="control-label">Enter Task: </label>
